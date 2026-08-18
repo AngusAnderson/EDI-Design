@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import { Link } from "react-router";
 
 import { CartoonEarth } from "./cartoonEarth";
 import { Starfield } from "./starfield";
@@ -100,9 +101,9 @@ export function Hero() {
         </p>
 
         <div className="hero__actions">
-          <a className="hero__button hero__button--primary" href="#explore">
-            Beyond Earth
-          </a>
+            <Link className="hero__button hero__button--primary" to="/beyond-earth">
+                Beyond Earth
+            </Link>
 
           <a className="hero__button hero__button--secondary" href="#about">
             Across Earth

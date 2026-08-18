@@ -1,15 +1,15 @@
-import React from 'react'
-import './styles/universall.css';
-import { Hero } from './components/hero/hero';
+import { Route, Routes } from "react-router";
 
-const App = () => {
+import { HomePage } from "./pages/homePage";
+import { BeyondEarthPage } from "./pages/beyondEarthPage";
+
+function App() {
   return (
-    <>
-      <main>
-        <Hero />
-      </main>
-    </>
-  )
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/beyond-earth" element={<BeyondEarthPage />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
