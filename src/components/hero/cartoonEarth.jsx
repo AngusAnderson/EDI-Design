@@ -1,53 +1,69 @@
-
-import { useRef } from "react";
-import * as THREE from "three";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { useAnimations, useGLTF } from "@react-three/drei";
+import * as THREE from "three";
+
+const MODEL_PATH = "/models/earth-cartoon.glb";
 
 export function CartoonEarth({
-  earthColor = "#2266ff",
-  cloudColor = "#ffffff",
-  rotationSpeed = 0.002,
-  cloudSpeed = 0.003,
-  radius = 1,
+  scale = 1.05,
+  position = [1.4, 0, 0],
+  rotationSpeed = 0.14,
+  animationName = "Animación",
 }) {
-  const earthRef = useRef();
-  const cloudRef = useRef();
+  const rotationRef = useRef();
+  const modelRef = useRef();
+
+  const { scene, animations } = useGLTF(MODEL_PATH);
+  const { actions } = useAnimations(animations, modelRef);
+
+  useLayoutEffect(() => {
+    if (!modelRef.current) return;
+
+    const box = new THREE.Box3().setFromObject(modelRef.current);
+    const center = new THREE.Vector3();
+
+    box.getCenter(center);
+    modelRef.current.position.sub(center);
+  }, [scene]);
+
+  useEffect(() => {
+    const availableNames = Object.keys(actions);
+
+    const action =
+      actions[animationName] ??
+      actions[availableNames[0]];
+
+    if (!action) {
+      console.warn("No playable animation action was found.");
+      return;
+    }
+
+    action.reset().fadeIn(0.35).play();
+
+    return () => {
+      action.fadeOut(0.35);
+      action.stop();
+    };
+  }, [actions, animationName]);
 
   useFrame((_, delta) => {
-    if (earthRef.current) {
-      earthRef.current.rotation.y += rotationSpeed;
-    }
-    if (cloudRef.current) {
-      cloudRef.current.rotation.y += cloudSpeed;
+    if (rotationRef.current) {
+      rotationRef.current.rotation.y += delta * rotationSpeed;
     }
   });
 
   return (
-    <group>
-      <mesh ref={earthRef}>
-        <sphereGeometry args={[radius, 64, 64]} />
-        <meshToonMaterial color={earthColor} />
-      </mesh>
-
-      <mesh ref={cloudRef}>
-        <sphereGeometry args={[radius * 1.02, 64, 64]} />
-        <meshToonMaterial
-          color={cloudColor}
-          transparent
-          opacity={0.35}
-          depthWrite={false}
-        />
-      </mesh>
-
-      <mesh>
-        <sphereGeometry args={[radius * 1.04, 64, 64]} />
-        <meshBasicMaterial
-          color="#001133"
-          side={THREE.BackSide}
-          transparent
-          opacity={0.25}
-        />
-      </mesh>
+    <group
+      ref={rotationRef}
+      position={position}
+      scale={scale}
+    >
+      <group ref={modelRef}>
+        <primitive object={scene} />
+      </group>
     </group>
   );
 }
+
+useGLTF.preload(MODEL_PATH);
