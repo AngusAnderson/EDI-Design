@@ -30,8 +30,6 @@ export function CartoonEarth({
   useEffect(() => {
     const availableNames = Object.keys(actions);
 
-    console.log("Available animation actions:", availableNames);
-
     const action =
       actions[animationName] ??
       actions[availableNames[0]];

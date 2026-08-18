@@ -41,7 +41,7 @@
     justify-content: center;
     width: min(100% - 3rem, 680px);
     min-height: 100svh;
-    padding: 5rem 0;
+    padding: 3rem 0;
     margin-left: clamp(1.5rem, 7vw, 9rem);
     color: #f7f9ff;
     font-family: Inter, system-ui, sans-serif;
@@ -153,6 +153,8 @@
     height: 1px;
     background: rgba(226, 234, 255, 0.45);
   }
+
+  /* Mobile Scum 👎 */
   
   @media (max-width: 700px) {
     .hero::after {
@@ -165,10 +167,11 @@
     }
   
     .hero__overlay {
-      justify-content: flex-end;
-      width: auto;
-      padding: 2rem 1.5rem 6rem;
-      margin: 0;
+        justify-content: flex-end;
+        width: auto;
+        min-height: 100svh;
+        padding: 2rem 1.5rem 6rem;
+        margin: 0;
     }
   
     .hero__title {

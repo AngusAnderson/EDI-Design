@@ -4,7 +4,10 @@ import { OrbitControls } from "@react-three/drei";
 
 import { CartoonEarth } from "./cartoonEarth";
 import { Starfield } from "./starfield";
+import { Moon } from "./moon";
 import "./hero.css";
+
+import { Navbar } from "../navbar/navbar";
 
 function Scene() {
   const { viewport } = useThree();
@@ -41,6 +44,14 @@ function Scene() {
         rotationSpeed={0.14}
       />
 
+        <Moon
+        earthPosition={earthPosition}
+        distance={2.1}
+        scale={0.03}
+        orbitSpeed={0.18}
+        rotationSpeed={0.2}
+        />
+
       <OrbitControls
         enableDamping
         dampingFactor={0.07}
@@ -59,6 +70,9 @@ function Scene() {
 export function Hero() {
   return (
     <section className="hero">
+
+      <Navbar />
+
       <Canvas
         className="hero__canvas"
         camera={{
@@ -74,24 +88,24 @@ export function Hero() {
       </Canvas>
 
       <div className="hero__overlay">
-        <p className="hero__eyebrow">Explore the world</p>
+        <p className="hero__eyebrow">Explore Worlds Beyond</p>
 
         <h1 className="hero__title">
           Edinburgh
-          <span> Aerodrome</span>
+          <span> Spaceport & Aerodrome</span>
         </h1>
 
         <p className="hero__description">
-          A planet in motion.
+          A gateway for terrestrial journeys & orbital adventures
         </p>
 
         <div className="hero__actions">
           <a className="hero__button hero__button--primary" href="#explore">
-            Explore Earth
+            Beyond Earth
           </a>
 
           <a className="hero__button hero__button--secondary" href="#about">
-            Learn more
+            Across Earth
           </a>
         </div>
       </div>
