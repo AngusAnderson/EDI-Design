@@ -1,49 +1,57 @@
-import { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 import { CartoonEarth } from "./cartoonEarth";
 import { Starfield } from "./starfield";
 import "./hero.css";
 
-function Scene({ autoOrbit = true }) {
-  const groupRef = useRef();
+function Scene() {
+  const { viewport } = useThree();
 
-  useFrame((_, delta) => {
-    if (autoOrbit && groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.05;
-    }
-  });
+  const isMobile = viewport.width < 7;
+
+  const earthPosition = isMobile
+    ? [0.7, -0.25, 0]
+    : [2.1, 0.05, 0];
+
+  const earthScale = isMobile ? 0.72 : 1.05;
 
   return (
     <>
-      <ambientLight intensity={0.6} />
+      <ambientLight intensity={1.3} />
 
       <directionalLight
-        position={[5, 3, 5]}
-        intensity={1.2}
+        position={[5, 4, 5]}
+        intensity={2.5}
+        color="#ffffff"
       />
 
-      <OrbitControls
-        enableDamping
-        dampingFactor={0.08}
-        autoRotate
-        autoRotateSpeed={0.4}
-        minDistance={3}
-        maxDistance={12}
+      <pointLight
+        position={[-4, 1, -3]}
+        intensity={1.1}
+        color="#587cff"
       />
 
       <Starfield />
 
-      <group ref={groupRef}>
-        <CartoonEarth
-          earthColor="#2a70ff"
-          cloudColor="#e6f0ff"
-          rotationSpeed={0.002}
-          cloudSpeed={0.003}
-          radius={1}
-        />
-      </group>
+      <CartoonEarth
+        position={earthPosition}
+        scale={earthScale}
+        rotationSpeed={0.14}
+      />
+
+      <OrbitControls
+        enableDamping
+        dampingFactor={0.07}
+        enablePan={false}
+        autoRotate={false}
+        minDistance={4}
+        maxDistance={9}
+        minPolarAngle={Math.PI / 3}
+        maxPolarAngle={(Math.PI * 2) / 3}
+        target={earthPosition}
+      />
     </>
   );
 }
@@ -53,23 +61,28 @@ export function Hero() {
     <section className="hero">
       <Canvas
         className="hero__canvas"
-        camera={{ position: [0, 1.2, 6], fov: 50 }}
+        camera={{
+          position: [2.1, 0.2, 6.2],
+          fov: 47,
+        }}
         dpr={[1, 2]}
+        gl={{ antialias: true }}
       >
-        <Scene autoOrbit />
+        <Suspense fallback={null}>
+          <Scene />
+        </Suspense>
       </Canvas>
 
       <div className="hero__overlay">
         <p className="hero__eyebrow">Explore the world</p>
 
         <h1 className="hero__title">
-          A planet in
-          <span> motion.</span>
+          Edinburgh
+          <span> Aerodrome</span>
         </h1>
 
         <p className="hero__description">
-          A stylised interactive Earth, floating through a procedural field of
-          stars.
+          A planet in motion.
         </p>
 
         <div className="hero__actions">
