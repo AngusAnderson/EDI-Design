@@ -1,0 +1,36 @@
+/* z-index directory: */
+
+    /* .hero__overlay: z-index: 1; -- Includes stripes and lines */
+
+    /* .hero__content: z-index: 2; -- Includes title and subtitle */
+
+/* end z-index directory */
+
+
+/* Universal style sheet begin: */
+
+    h1 {
+        margin: 0;
+    }
+
+    html,
+    body,
+    #root {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+        cursor: url('../assets/cursor/cursor.png'), auto;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Scrollbar go bye bye */
+
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+/* Universal style sheet end */

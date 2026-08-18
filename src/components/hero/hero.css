@@ -1,0 +1,194 @@
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(circle at 72% 42%, rgba(35, 94, 255, 0.16), transparent 26%),
+      radial-gradient(circle at 45% 110%, rgba(84, 30, 160, 0.18), transparent 38%),
+      #050710;
+  }
+  
+  .hero::after {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    content: "";
+    background: linear-gradient(
+      90deg,
+      rgba(5, 7, 16, 0.9) 0%,
+      rgba(5, 7, 16, 0.55) 32%,
+      rgba(5, 7, 16, 0.04) 66%,
+      rgba(5, 7, 16, 0.2) 100%
+    );
+  }
+  
+  .hero__canvas {
+    position: absolute !important;
+    z-index: 0;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  .hero__overlay {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: min(100% - 3rem, 680px);
+    min-height: 100svh;
+    padding: 5rem 0;
+    margin-left: clamp(1.5rem, 7vw, 9rem);
+    color: #f7f9ff;
+    pointer-events: none;
+    user-select: none;
+  }
+  
+  .hero__eyebrow {
+    margin: 0 0 1.15rem;
+    color: #8ea9ff;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+  
+  .hero__title {
+    max-width: 9ch;
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: clamp(3.25rem, 7vw, 7rem);
+    font-weight: 750;
+    letter-spacing: -0.07em;
+    line-height: 0.91;
+  }
+  
+  .hero__title span {
+    color: #6b92ff;
+  }
+  
+  .hero__description {
+    max-width: 39ch;
+    margin: 1.75rem 0 0;
+    color: rgba(232, 238, 255, 0.75);
+    font-family: Inter, system-ui, sans-serif;
+    font-size: clamp(1rem, 1.35vw, 1.15rem);
+    line-height: 1.7;
+  }
+  
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+    pointer-events: auto;
+  }
+  
+  .hero__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.9rem;
+    padding: 0.7rem 1.15rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 650;
+    text-decoration: none;
+    transition:
+      transform 180ms ease,
+      background-color 180ms ease,
+      border-color 180ms ease;
+  }
+  
+  .hero__button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .hero__button--primary {
+    color: #06102b;
+    background: #dce6ff;
+    box-shadow: 0 8px 28px rgba(91, 137, 255, 0.25);
+  }
+  
+  .hero__button--primary:hover {
+    background: #ffffff;
+  }
+  
+  .hero__button--secondary {
+    color: #e6ecff;
+    border-color: rgba(210, 222, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+  }
+  
+  .hero__button--secondary:hover {
+    border-color: rgba(210, 222, 255, 0.65);
+    background: rgba(255, 255, 255, 0.11);
+  }
+  
+  .hero__scroll-indicator {
+    position: absolute;
+    z-index: 2;
+    right: clamp(1.5rem, 4vw, 5rem);
+    bottom: 2.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: rgba(226, 234, 255, 0.58);
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 650;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  
+  .hero__scroll-indicator i {
+    display: block;
+    width: 3.5rem;
+    height: 1px;
+    background: rgba(226, 234, 255, 0.45);
+  }
+  
+  @media (max-width: 700px) {
+    .hero::after {
+      background: linear-gradient(
+        180deg,
+        rgba(5, 7, 16, 0.72) 0%,
+        rgba(5, 7, 16, 0.4) 48%,
+        rgba(5, 7, 16, 0.85) 100%
+      );
+    }
+  
+    .hero__overlay {
+      justify-content: flex-end;
+      width: auto;
+      min-height: 100svh;
+      padding: 2rem 1.5rem 6rem;
+      margin: 0;
+    }
+  
+    .hero__title {
+      font-size: clamp(3rem, 15vw, 5rem);
+    }
+  
+    .hero__scroll-indicator {
+      right: 1.5rem;
+      bottom: 1.5rem;
+    }
+  
+    .hero__scroll-indicator span {
+      display: none;
+    }
+  
+    .hero__scroll-indicator i {
+      width: 2.5rem;
+    }
+  }
